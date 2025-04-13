@@ -3,6 +3,8 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import './audioPlayer.css';
 import './codeWindow.css';
+import OpenAI from 'openai';
+import { io } from "socket.io-client";
 
 const VOICES = [
   'alloy', 'ash', 'ballad', 'coral', 'echo', 'fable', 'onyx', 'nova', 'sage', 'shimmer', 'verse'
@@ -42,6 +44,10 @@ function App() {
   const [activeTab, setActiveTab] = useState('javascript');
   const [apiResponse, setApiResponse] = useState(null);
   const audioRef = useRef(null);
+
+  const openai = new OpenAI({ apiKey: apiKey, dangerouslyAllowBrowser: true });
+
+  const socket = io("http://localhost:8888");
 
   // Save API key to localStorage when it changes
   useEffect(() => {
@@ -166,7 +172,7 @@ function App() {
     
     try {
       const startTime = performance.now();
-      const response = await fetch('https://api.openai.com/v1/audio/speech', {
+      /*const response = await fetch('https://api.openai.com/v1/audio/speech', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -180,6 +186,15 @@ function App() {
           speed: parseFloat(speed),
           response_format: 'mp3'
         })
+      });*/
+      socket.emit("Speak", 'gpt-4o-mini-tts', text, voice, instructions, speed);
+      const response = await openai.audio.speech.create({
+        model: 'gpt-4o-mini-tts',
+        input: text,
+        voice: voice,
+        instructions: instructions,
+        speed: parseFloat(speed),
+        response_format: 'mp3',
       });
       const endTime = performance.now();
       const processingTime = ((endTime - startTime) / 1000).toFixed(2);
