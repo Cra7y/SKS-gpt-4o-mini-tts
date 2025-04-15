@@ -7,10 +7,12 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "start": "concurrently \"vite\" \"node ./backgroundService.js\""
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.0.15",
+    "concurrently": "^9.1.2",
     "dotenv": "^16.5.0",
     "openai": "^4.93.0",
     "react": "^19.0.0",
