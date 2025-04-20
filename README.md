@@ -1,3 +1,5 @@
+# This readme is from the demo. I have not updated it.
+
 # lagna360 - GPT-4o-mini-tts Demo
 
 A mobile-friendly, dark-themed web application to showcase OpenAI's GPT-4o-mini-tts API. This app allows users to test various text-to-speech features with a modern, gaming-inspired UI.
