@@ -1,4 +1,5 @@
 # This readme is from the demo. I have not updated it.
+All modifications are hastely impolemented, and multiple issues exist.
 
 # lagna360 - GPT-4o-mini-tts Demo
 
